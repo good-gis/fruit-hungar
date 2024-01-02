@@ -6,15 +6,17 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import {ProfilePage} from "./profile.page";
+import {HeaderModule} from "../header/header.module";
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ExploreContainerComponentModule,
-    ProfileRoutingModule
-  ],
+    imports: [
+        IonicModule,
+        CommonModule,
+        FormsModule,
+        ExploreContainerComponentModule,
+        ProfileRoutingModule,
+        HeaderModule
+    ],
   declarations: [ProfilePage]
 })
 export class ProfileModule {}

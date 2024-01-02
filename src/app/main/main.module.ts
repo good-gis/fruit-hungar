@@ -6,15 +6,17 @@ import { MainPage } from './main.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { MainPageRoutingModule } from './main-routing.module';
+import {HeaderModule} from "../header/header.module";
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ExploreContainerComponentModule,
-    MainPageRoutingModule
-  ],
+    imports: [
+        IonicModule,
+        CommonModule,
+        FormsModule,
+        ExploreContainerComponentModule,
+        MainPageRoutingModule,
+        HeaderModule
+    ],
   declarations: [MainPage]
 })
 export class MainPageModule {}

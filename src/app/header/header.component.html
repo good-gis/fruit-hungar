@@ -1,3 +1,8 @@
-<ion-header [translucent]="true">
-  
+<ion-header>
+  <div class="header">
+    <ion-img src="/assets/Icon_menu.svg" class="header-menu" *ngIf="!isBackBtnAvailable"></ion-img>
+    <ion-img src="/assets/Icon_left.svg" class="header-left" *ngIf="isBackBtnAvailable"></ion-img>
+    <ion-img src="/assets/header-logo.png" class="header-logo"></ion-img>
+    <ion-img src="/assets/Icon_call.svg" class="header-call"></ion-img>
+  </div>
 </ion-header>
