@@ -1,0 +1,64 @@
+ion-content {
+  --padding-end: 16px;
+  --padding-start: 16px;
+}
+
+.slogan {
+  color: var(--Green-green-500, #11482A);
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 36px;
+}
+
+.categories-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+
+.categories-title {
+  font-size: 20px;
+  line-height: 28px;
+  margin: 0;
+}
+
+.categories-link {
+  color: var(--Green-green-100, #2BB56A);
+  font-size: 14px;
+  text-decoration-line: underline;
+}
+
+.categories-slider {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.berries-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--Black-black-500, #2A2D31);
+  margin: 0 0 36px;
+}
+
+.categories-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.categories-image {
+  border-radius: 20px;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 4px;
+}
+
+.vegetables {
+  background: url("../../assets/vegetables-layout.png");
+}
+
+.berries {
+  background: url("../../assets/berries-layout.png");
+}
