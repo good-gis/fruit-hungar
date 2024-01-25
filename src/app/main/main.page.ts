@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController} from "@ionic/angular";
+import {AlertController, NavController} from "@ionic/angular";
 import {StrawberryPage} from "../strawberry/strawberry.page";
 import {Router} from "@angular/router";
 
@@ -9,9 +9,19 @@ import {Router} from "@angular/router";
   styleUrls: ['main.page.scss']
 })
 export class MainPage {
-  constructor(public router: Router) {}
+  constructor(public router: Router, private alertController: AlertController) {}
 
-  click() {
+  berriesClick() {
     this.router.navigate(['tabs/strawberry']);
+  }
+
+  async presentAlertVegetablesNotAvailable() {
+    const alert = await this.alertController.create({
+      header: 'Овощи не доступны',
+      message: 'К сожалению, в данный момент категория овощи не доступна. Мы работаем над тем, чтобы добавить возможность заказать овощи в ближайшее время.',
+      buttons: ['Хорошо'],
+    });
+
+    await alert.present();
   }
 }

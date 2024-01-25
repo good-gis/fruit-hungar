@@ -13,11 +13,11 @@
 
     <div class="categories-slider">
       <div class="categories-berries categories-item">
-        <div class="berries categories-image" (click)="click()"></div>
+        <div class="berries categories-image" (click)="berriesClick()"></div>
         <p class="berries-name">Ягоды</p>
       </div>
       <div class="categories-vegetables categories-item">
-        <div class="vegetables categories-image"></div>
+        <div class="vegetables categories-image" (click)="presentAlertVegetablesNotAvailable()"></div>
         <p class="berries-name">Овощи</p>
       </div>
     </div>
