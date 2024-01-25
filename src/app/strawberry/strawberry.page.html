@@ -3,21 +3,23 @@
   <div class="header">
 
   </div>
-  <div class="strawberry-sort">
+
+
+  <div *ngFor="let sort of strawberries" class="strawberry-sort">
     <ion-card>
-      <img alt="Strawberry plants" src="../../assets/Fragaria-Ananassa.jpg" />
+      <img alt="Strawberry plants" src="{{sort.image}}" />
       <ion-card-header>
-        <ion-card-title>Fragaria x ananassa</ion-card-title>
-        <ion-card-subtitle>Favory A++</ion-card-subtitle>
+        <ion-card-title>{{sort.sortName}}</ion-card-title>
+        <ion-card-subtitle>{{sort.subtitle}}</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
-        Сроки созревания колеблются от июня (ранние) до начала августа (поздние). Ягоды бывают сладкими и с кислинкой, цветовая гамма — от бледно-розовой до темно-красной. К сортовым признакам относится форма плодов (округлая, продолговатая, коническая) и размер (от 1 до 5.5 см. в диаметре).
+        {{sort.description}}
         <div class="progress-text">
-          Сбор урожая через: {{ days }} дней
+          {{ prepareTextForProgressBar(sort.days) }}
         </div>
       <div class="progress">
-        <ion-progress-bar [value]="progress" color="success"></ion-progress-bar>
+        <ion-progress-bar [value]="prepareDataForProgressBar(sort.days)" color="success"></ion-progress-bar>
       </div>
 
         <div class="buy-buttons">
