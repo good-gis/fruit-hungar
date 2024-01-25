@@ -26,25 +26,25 @@
           <div class="select">
             <ion-list>
               <ion-item>
-                <ion-select aria-label="Укажите вес" value="500gr">
-                  <ion-select-option value="500gr">500 гр</ion-select-option>
-                  <ion-select-option value="1000gr">1 кг</ion-select-option>
-                  <ion-select-option value="2000gr">2 кг</ion-select-option>
-                  <ion-select-option value="3000gr">3 кг</ion-select-option>
-                  <ion-select-option value="4000gr">4 кг</ion-select-option>
-                  <ion-select-option value="5000gr">5 кг</ion-select-option>
-                  <ion-select-option value="6000gr">6 кг</ion-select-option>
-                  <ion-select-option value="7000gr">7 кг</ion-select-option>
-                  <ion-select-option value="8000gr">8 кг</ion-select-option>
-                  <ion-select-option value="9000gr">9 кг</ion-select-option>
-                  <ion-select-option value="10000gr">10 кг</ion-select-option>
+                <ion-select [(ngModel)]="selectedOption" aria-label="Укажите вес" value="500gr">
+                  <ion-select-option value="500">500 гр</ion-select-option>
+                  <ion-select-option value="1000">1 кг</ion-select-option>
+                  <ion-select-option value="2000">2 кг</ion-select-option>
+                  <ion-select-option value="3000">3 кг</ion-select-option>
+                  <ion-select-option value="4000">4 кг</ion-select-option>
+                  <ion-select-option value="5000">5 кг</ion-select-option>
+                  <ion-select-option value="6000">6 кг</ion-select-option>
+                  <ion-select-option value="7000">7 кг</ion-select-option>
+                  <ion-select-option value="8000">8 кг</ion-select-option>
+                  <ion-select-option value="9000">9 кг</ion-select-option>
+                  <ion-select-option value="10000">10 кг</ion-select-option>
                 </ion-select>
               </ion-item>
             </ion-list>
           </div>
 
           <div class="add-to-basket-btn">
-            <ion-button size="default">Добавить в корзину</ion-button>
+            <ion-button size="default" (click)="writeResult(sort)">Добавить в корзину</ion-button>
           </div>
         </div>
       </ion-card-content>
