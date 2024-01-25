@@ -1,0 +1,52 @@
+<app-header [isBackBtnAvailable]=true></app-header>
+<ion-content [fullscreen]="true">
+  <div class="header">
+
+  </div>
+  <div class="strawberry-sort">
+    <ion-card>
+      <img alt="Strawberry plants" src="../../assets/Fragaria-Ananassa.jpg" />
+      <ion-card-header>
+        <ion-card-title>Fragaria x ananassa</ion-card-title>
+        <ion-card-subtitle>Favory A++</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        Сроки созревания колеблются от июня (ранние) до начала августа (поздние). Ягоды бывают сладкими и с кислинкой, цветовая гамма — от бледно-розовой до темно-красной. К сортовым признакам относится форма плодов (округлая, продолговатая, коническая) и размер (от 1 до 5.5 см. в диаметре).
+        <div class="progress-text">
+          Сбор урожая через: {{ days }} дней
+        </div>
+      <div class="progress">
+        <ion-progress-bar [value]="progress" color="success"></ion-progress-bar>
+      </div>
+
+        <div class="buy-buttons">
+          <div class="select">
+            <ion-list>
+              <ion-item>
+                <ion-select aria-label="Укажите вес" value="500gr">
+                  <ion-select-option value="500gr">500 гр</ion-select-option>
+                  <ion-select-option value="1000gr">1 кг</ion-select-option>
+                  <ion-select-option value="2000gr">2 кг</ion-select-option>
+                  <ion-select-option value="3000gr">3 кг</ion-select-option>
+                  <ion-select-option value="4000gr">4 кг</ion-select-option>
+                  <ion-select-option value="5000gr">5 кг</ion-select-option>
+                  <ion-select-option value="6000gr">6 кг</ion-select-option>
+                  <ion-select-option value="7000gr">7 кг</ion-select-option>
+                  <ion-select-option value="8000gr">8 кг</ion-select-option>
+                  <ion-select-option value="9000gr">9 кг</ion-select-option>
+                  <ion-select-option value="10000gr">10 кг</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </div>
+
+          <div class="add-to-basket-btn">
+            <ion-button size="default">Добавить в корзину</ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+</ion-content>

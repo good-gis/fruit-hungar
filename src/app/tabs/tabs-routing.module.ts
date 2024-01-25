@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfileModule)
       },
       {
+        path: 'strawberry',
+        loadChildren: () => import('../strawberry/strawberry.module').then(m => m.StrawberryPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/main',
         pathMatch: 'full'

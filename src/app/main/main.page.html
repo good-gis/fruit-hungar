@@ -8,12 +8,12 @@
   <div class="categories">
     <div class="categories-header">
       <h2 class="categories-title">Категории</h2>
-      <a href="#" class="categories-link">Весь ассортимент</a>
+<!--      <a href="#" class="categories-link">Весь ассортимент</a>-->
     </div>
 
     <div class="categories-slider">
       <div class="categories-berries categories-item">
-        <div class="berries categories-image"></div>
+        <div class="berries categories-image" (click)="click()"></div>
         <p class="berries-name">Ягоды</p>
       </div>
       <div class="categories-vegetables categories-item">
@@ -24,28 +24,47 @@
   </div>
 
   <div class="photos-and-videos">
-    <div class="video">
-<!--      <video src="/assets/promo-video.mp4"></video>-->
-    </div>
-    <div class="photos">
-<!--      <img class="photo-1" src=""></img>-->
-<!--      <img class="photo-2"></img>-->
-    </div>
+    <h2 class="photos-and-videos-title">Видео и фото наших продуктов</h2>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="photo-big"></div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+        <div class="photo-small-1"></div>
+        </ion-col>
+          <ion-col>
+        <div class="photo-small-2"></div>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 
   <div class="about-us-block">
-    <p class="about-us-block-header">О нас</p>
-    <p class="about-us-text">Теплица круглый год.
-      В этом деле нужны большие знания, так же нужны вложения и ежедневный труд для получения урожая. В своём деле мы используем проверенные сорта и только органические удобрения. Без труда наших сотрудников, вы не смогли бы насладиться нашим качественным продуктом.</p>
+    <h2 class="about-us-block-header">О нас</h2>
+    <p class="about-us-text">Теплица круглый год. <br> <br>
+      В этом деле нужны большие знания, так же нужны вложения и ежедневный труд для получения урожая. В своём деле мы используем проверенные сорта и только органические удобрения. Без труда наших сотрудников, вы не смогли бы насладиться нашим качественным продуктом.</p>
     <div class="about-us-photos">
-      <div class="about-us-line-1">
-        <!--      <img class="photo-1" src=""></img>-->
-        <!--      <img class="photo-2"></img>-->
-      </div>
-      <div class="about-us-line-2">
-        <!--      <img class="photo-1" src=""></img>-->
-        <!--      <img class="photo-2"></img>-->
-      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+          <div class="photo-small-3"></div>
+          </ion-col>
+          <ion-col>
+          <div class="photo-small-4"></div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+          <div class="photo-small-5"></div>
+          </ion-col>
+          <ion-col>
+          <div class="photo-small-6"></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
   </div>
 

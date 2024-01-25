@@ -1,0 +1,23 @@
+.buy-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 20px;
+  align-items: center;
+}
+
+ion-button {
+  --background: var(--Orange-orange-100, #FF683D);
+  --border-radius: 6px;
+  --background-hover: #d03918;
+  --background-activated: #d03918;
+  --background-focused: #d03918;
+}
+
+.progress-text {
+  margin-top: 12px;
+}
+
+.progress {
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
