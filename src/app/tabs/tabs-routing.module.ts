@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('../strawberry/strawberry.module').then(m => m.StrawberryPageModule)
       },
       {
+        path: 'order',
+        loadChildren: () => import('../order/order.module').then(m => m.OrderPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/main',
         pathMatch: 'full'
