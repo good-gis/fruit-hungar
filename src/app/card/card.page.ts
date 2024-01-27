@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {BasketItem, BasketService} from "../basket.service";
 import {Router} from "@angular/router";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-card',
@@ -9,7 +10,7 @@ import {Router} from "@angular/router";
 })
 export class CardPage {
 
-  constructor(public router: Router, public basketService: BasketService) {}
+  constructor(public router: Router, public basketService: BasketService, public userService: UserService) {}
 
   plusProductQuantity(product: BasketItem): void {
     if (product.quantity === 500) {
@@ -36,5 +37,9 @@ export class CardPage {
 
   goToMainPage() {
     this.router.navigate(['tabs/main'])
+  }
+
+  createUser() {
+    console.log(this.userService.getUser('1'))
   }
 }
