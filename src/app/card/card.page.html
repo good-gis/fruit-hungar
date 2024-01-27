@@ -1,7 +1,15 @@
 <ion-content [fullscreen]="true">
   <app-header [isBackBtnAvailable]=true></app-header>
 
-  <h2 class="page-header">Корзина</h2>
+  <h2 class="page-header" *ngIf="(basketService.getBasketItems$ | async)?.length">Корзина</h2>
+
+  <div class="basket-is-empty"  *ngIf="!(basketService.getBasketItems$ | async)?.length">
+    <ion-img src='../../assets/empty-basket.gif'></ion-img>
+    <h2 class="page-text">Корзина пуста</h2>
+    <h2 class="page-text">Пожалуйста, добавьте товары</h2>
+    <ion-button (click)="goToMainPage()" class="finish-btn go-back-btn">Перейти на главную страницу</ion-button>
+  </div>
+
 
   <ion-card *ngFor="let product of basketService.getBasketItems$ | async">
     <ion-card-header>

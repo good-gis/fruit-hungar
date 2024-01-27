@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {BasketItem, BasketService} from "../basket.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-card',
@@ -8,7 +9,7 @@ import {BasketItem, BasketService} from "../basket.service";
 })
 export class CardPage {
 
-  constructor(public basketService: BasketService) {}
+  constructor(public router: Router, public basketService: BasketService) {}
 
   plusProductQuantity(product: BasketItem): void {
     if (product.quantity === 500) {
@@ -31,5 +32,9 @@ export class CardPage {
     }
 
     this.basketService.addOrUpdateBasketItem(product);
+  }
+
+  goToMainPage() {
+    this.router.navigate(['tabs/main'])
   }
 }
