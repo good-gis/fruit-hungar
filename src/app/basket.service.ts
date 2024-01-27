@@ -1,36 +1,64 @@
 import { Injectable } from '@angular/core';
+import {BehaviorSubject, map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasketService {
 
-  private _productInBasket: BasketItem[] = [];
+  private basketItems$: BehaviorSubject<BasketItem[]> = new BehaviorSubject<BasketItem[]>([]);
   constructor() { }
 
   get productInBasket(): BasketItem[] {
-    return this._productInBasket;
+    return this.basketItems$.value;
   }
 
-  addOrUpdateProduct(product: BasketItem) {
-    let foundObject = this._productInBasket.find(obj => obj.productId === product.productId);
-    if (foundObject) {
-      foundObject = product;
+  get getBasketItems$(): BehaviorSubject<BasketItem[]> {
+    return this.basketItems$;
+  }
+
+  addOrUpdateBasketItem(item: BasketItem): void {
+    const basketItems = this.basketItems$.getValue();
+    const existingIndex = basketItems.findIndex(i => i.productId === item.productId);
+
+    if (existingIndex !== -1) {
+      // Элемент уже существует, обновляем его
+      basketItems[existingIndex] = item;
     } else {
-      this._productInBasket.push(product);
+      // Элемент не найден, добавляем новый элемент
+      basketItems.push(item);
     }
+
+    // Оповещаем подписчиков о изменении массива basketItems
+    this.basketItems$.next(basketItems);
   }
 
-  deleteProduct(productId: number) {
-    let index = this._productInBasket.findIndex(obj => obj.productId === productId);
-    if (index !== -1) {
-      this._productInBasket.splice(index, 1);
-    }
+  removeBasketItem(productId: number): void {
+    const basketItems = this.basketItems$.getValue();
+    const updatedBasketItems = basketItems.filter(item => item.productId !== productId);
+
+    // Оповещаем подписчиков о изменении массива basketItems
+    this.basketItems$.next(updatedBasketItems);
+  }
+
+  getBasketTotalCost$(): Observable<number> {
+    return this.basketItems$.pipe(
+      map(basketItems => {
+        let totalCost = 0;
+        for (const item of basketItems) {
+          totalCost += (item.quantity / 1000) * item.pricePerKg;
+        }
+        return totalCost;
+      })
+    );
   }
 }
 
-interface BasketItem {
+export interface BasketItem {
+  berries: string,
+  sort: string,
   productId: number,
   quantity: number,
-  pricePerKg: number
+  pricePerKg: number,
+  image: string
 }

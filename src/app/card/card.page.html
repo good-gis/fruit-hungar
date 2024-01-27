@@ -1,3 +1,55 @@
 <ion-content [fullscreen]="true">
   <app-header [isBackBtnAvailable]=true></app-header>
+
+  <h2 class="page-header">Корзина</h2>
+
+  <ion-card *ngFor="let product of basketService.getBasketItems$ | async">
+    <ion-card-header>
+      <ion-card-title>{{ product.sort }}</ion-card-title>
+      <ion-card-subtitle>{{ product.berries }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img alt="{{ product.berries }}" src="{{ product.image }}" />
+          </ion-thumbnail>
+
+          <div class="change-product-data-button-grid">
+            <div class="change-product-data">
+              <ion-button class="change-product-data-button" color="success" (click)="plusProductQuantity(product)">+</ion-button>
+              <ion-text>{{ product.quantity / 1000 }} кг </ion-text>
+              <ion-button class="change-product-data-button" color="success" (click)="minusProductQuantity(product)">-</ion-button>
+            </div>
+
+            <div class="price-delete">
+              <div class="price">
+                <ion-text>{{ product.quantity / 1000 * product.pricePerKg }} ₽</ion-text>
+              </div>
+              <div class="delete-btn">
+                <ion-button class="change-product-data-button" color="danger" (click)="basketService.removeBasketItem(product.productId)">X</ion-button>
+              </div>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <div class="cost-review" *ngIf="(basketService.getBasketItems$ | async)?.length">
+    <div class="sum-of-products grid-price">
+      <ion-text class="left-text">Товаров на сумму:</ion-text>
+      <ion-text class="right-text">{{basketService.getBasketTotalCost$() | async}} ₽</ion-text>
+    </div>
+
+    <div class="delivery grid-price">
+      <ion-text class="left-text">Стоимость доставки:</ion-text>
+      <ion-text class="right-text">0 ₽</ion-text>
+    </div>
+
+    <div class="finishPrice grid-price">
+      <ion-text class="left-text">Всего к оплате:</ion-text>
+      <ion-text class="right-text">{{basketService.getBasketTotalCost$() | async}} ₽</ion-text>
+    </div>
+    <ion-button class="finish-btn">Оформить заказ</ion-button>
+  </div>
 </ion-content>

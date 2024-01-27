@@ -7,11 +7,13 @@
     </ion-tab-button>
 
     <ion-tab-button tab="card" href="/tabs/card">
+      <ion-badge color="danger" *ngIf="basketService.productInBasket.length">{{ basketService.productInBasket.length }}</ion-badge>
       <ion-icon name="basket" class="icon-2"></ion-icon>
       <ion-label class="label">Корзина</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="notification" href="/tabs/notification">
+      <ion-badge color="danger">1</ion-badge>
       <ion-icon name="notifications" class="icon"></ion-icon>
       <ion-label class="label">Уведомления</ion-label>
     </ion-tab-button>

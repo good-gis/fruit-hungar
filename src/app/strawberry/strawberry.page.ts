@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {strawberries} from "./strawberries-mock";
-import {options} from "ionicons/icons";
 import {BasketService} from "../basket.service";
 import {Strawberry} from "./strawberry";
 
@@ -9,13 +8,10 @@ import {Strawberry} from "./strawberry";
   templateUrl: './strawberry.page.html',
   styleUrls: ['./strawberry.page.scss'],
 })
-export class StrawberryPage implements OnInit {
+export class StrawberryPage {
   selectedOption = '500';
 
   constructor(public basketService: BasketService) { }
-
-  ngOnInit() {
-  }
 
   prepareTextForProgressBar(days: number): string {
     switch (days) {
@@ -41,7 +37,10 @@ export class StrawberryPage implements OnInit {
   protected readonly strawberries = strawberries;
 
   writeResult(sort: Strawberry) {
-    this.basketService.addOrUpdateProduct({
+    this.basketService.addOrUpdateBasketItem({
+      berries: 'Клубника',
+      sort: sort.sortName,
+      image: sort.image,
       productId: sort.id,
       quantity: Number(this.selectedOption),
       pricePerKg: sort.pricePerKg
