@@ -40,4 +40,20 @@ export class UserService {
       })
     );
   }
+
+  getUserIdByPhoneAndPassword(phone: string, password: string): Observable<string | null> {
+    return this.db.list('/users', ref =>
+      ref.orderByChild('phone').equalTo(phone).limitToFirst(1)
+    ).snapshotChanges().pipe(
+      map(changes => {
+        const user = changes[0]?.payload.val();
+        // @ts-ignore
+        if (user && user.password === password) {
+          return changes[0]?.payload.key;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
 }

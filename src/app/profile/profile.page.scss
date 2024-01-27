@@ -1,0 +1,18 @@
+.container {
+  padding: 16px;
+}
+
+.submit-btn {
+  --background: var(--Orange-orange-100, #FF683D);
+  --border-radius: 6px;
+  --background-hover: #d03918;
+  --background-activated: #d03918;
+  --background-focused: #d03918;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 0;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: block;
+}
