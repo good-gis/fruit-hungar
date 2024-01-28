@@ -62,6 +62,7 @@ export class CardPage {
         date: new Date().toTimeString(),
         product: productInBasket,
       })
+      this.router.navigate(['tabs/order'])
     }
   }
 }
