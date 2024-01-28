@@ -6,8 +6,8 @@
   <div class="basket-is-empty"  *ngIf="!(basketService.getBasketItems$ | async)?.length">
     <ion-img src='../../assets/empty-basket.gif'></ion-img>
     <h2 class="page-text">Корзина пуста</h2>
-    <h2 class="page-text">Пожалуйста, добавьте товары</h2>
-    <ion-button (click)="goToMainPage()" class="finish-btn go-back-btn">Перейти на главную страницу</ion-button>
+    <p class="page-text">Пожалуйста, добавьте товары в корзину на главной странице</p>
+    <ion-button (click)="goToMainPage()" class="finish-btn go-back-btn">Перейти к выбору</ion-button>
   </div>
 
 

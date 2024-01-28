@@ -72,7 +72,8 @@ export class CardPage {
         date: formattedDate,
         product: productInBasket,
       })
-      this.router.navigate(['tabs/order'])
+      this.basketService.getBasketItems$.next([]);
+      this.router.navigate(['tabs/order']);
     }
   }
 }
