@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import {BasketItem, BasketService} from "../basket.service";
 import {Router} from "@angular/router";
-import {UserService} from "../user.service";
+import {LocalstorageService} from "../localstorage.service";
+import {AlertController} from "@ionic/angular";
+import {OrderService} from "../order.service";
 
 @Component({
   selector: 'app-card',
@@ -10,7 +12,7 @@ import {UserService} from "../user.service";
 })
 export class CardPage {
 
-  constructor(public router: Router, public basketService: BasketService, public userService: UserService) {}
+  constructor(public orderService: OrderService, public router: Router, public basketService: BasketService, public localDb: LocalstorageService, private alertController: AlertController) {}
 
   plusProductQuantity(product: BasketItem): void {
     if (product.quantity === 500) {
@@ -37,5 +39,29 @@ export class CardPage {
 
   goToMainPage() {
     this.router.navigate(['tabs/main'])
+  }
+
+  async makeAnOrder(productInBasket: BasketItem[]) {
+    const userId = await this.localDb.get('userId');
+    if (!await this.localDb.get('userId')) {
+      const alert = await this.alertController.create({
+        header: 'Авторизуйтесь или заполните данные профиля',
+        message: 'Для офорления заказа требуется заполнить профиль. Заполните, пожалуйста, профиль, а Ваши ягодки подождут Вас в корзине',
+        buttons: [{
+          text: 'Открыть Профиль',
+
+          handler: ()=> {
+            this.router.navigate(['tabs/profile'])
+          }}],
+      });
+
+      await alert.present();
+    } else {
+      await this.orderService.createOrder({
+        userId: userId,
+        date: new Date().toTimeString(),
+        product: productInBasket,
+      })
+    }
   }
 }
