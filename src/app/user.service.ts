@@ -10,8 +10,8 @@ export class UserService {
   constructor(private db: AngularFireDatabase) {}
 
   // Create
-  createUser(user: User) {
-    this.db.database.ref('/users/' + user.id).set(user);
+  createUser(user: User): string | null {
+   return this.db.database.ref('/users/').push(user).key;
   }
 
   // Get Single
@@ -29,18 +29,6 @@ export class UserService {
     this.db.object('/users/' + id).remove();
   }
 
-  // Search User by Password and Phone
-  searchUserByPasswordAndPhone(password: string, phone: string): Observable<{ key: string | null }[]> {
-    return this.db.list<User>('/users', ref =>
-      ref.orderByChild('password').equalTo(password)
-        .orderByChild('phone').equalTo(phone)
-    ).snapshotChanges().pipe(
-      map(changes => {
-        return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-      })
-    );
-  }
-
   getUserIdByPhoneAndPassword(phone: string, password: string): Observable<string | null> {
     return this.db.list('/users', ref =>
       ref.orderByChild('phone').equalTo(phone).limitToFirst(1)
@@ -53,6 +41,17 @@ export class UserService {
         } else {
           return null;
         }
+      })
+    );
+  }
+
+  getUserIdByPhone(phone: string): Observable<string | null> {
+    return this.db.list('/users', ref =>
+      ref.orderByChild('phone').equalTo(phone).limitToFirst(1)
+    ).snapshotChanges().pipe(
+      map(changes => {
+        const user = changes[0]?.payload.val();
+        return user ? changes[0]?.payload.key : null;
       })
     );
   }

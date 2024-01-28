@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AlertController} from "@ionic/angular";
+import {UserService} from "../user.service";
+import {delay, map} from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +19,7 @@ export class ProfilePage {
     password: ['', Validators.required],
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private alertController: AlertController) {}
 
   ngOnInit() {}
 
@@ -38,13 +41,24 @@ export class ProfilePage {
     return [];
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.profileForm.valid) {
-      // You can access form values using this.formData.value
-      console.log('Form submitted:', this.profileForm.value);
-      // Here you can call your service method to save user data
+      this.userService.getUserIdByPhone(this.profileForm.value.phone).pipe(
+        delay(1000),
+        map((userId) => {
+          if (!userId) {
+            console.log(this.userService.createUser(this.profileForm.value));
+          }
+        }),
+      ).subscribe();
     } else {
-      console.error('Form is invalid');
+      const alert = await this.alertController.create({
+        header: 'Профиль заполнен не верно',
+        message: 'Проверьте, пожалуйста, корректность введенных данных',
+        buttons: ['Хорошо'],
+      });
+
+      await alert.present();
     }
   }
 }
