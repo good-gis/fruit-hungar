@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertController} from "@ionic/angular";
 import {UserService} from "../user.service";
-import {Observable, delay, map, filter, take, EMPTY} from "rxjs";
+import {Observable, map, take, EMPTY} from "rxjs";
 import {LocalstorageService} from "../localstorage.service";
 import { User } from '../user';
 import {LoadingController} from "@ionic/angular/standalone";
-import {user} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-profile',
