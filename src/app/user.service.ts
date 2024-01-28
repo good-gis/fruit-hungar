@@ -12,10 +12,6 @@ export class UserService {
 
   // Create
   async createUser(user: User): Promise<string | null> {
-    if (await this.localDb.get('userId')) {
-      this.updateUser(user);
-      return null;
-    }
     const userId = this.fireDatabase.database.ref('/users/').push(user).key;
     this.localDb.set('userId', userId);
 

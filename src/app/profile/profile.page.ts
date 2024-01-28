@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertController} from "@ionic/angular";
 import {UserService} from "../user.service";
-import {Observable, delay, map} from "rxjs";
+import {Observable, delay, map, filter, take, EMPTY} from "rxjs";
 import {LocalstorageService} from "../localstorage.service";
 import { User } from '../user';
+import {LoadingController} from "@ionic/angular/standalone";
+import {user} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-profile',
@@ -36,6 +38,7 @@ export class ProfilePage {
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private localDb: LocalstorageService,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -75,19 +78,55 @@ export class ProfilePage {
   }
 
   async onSubmit() {
+    const loading = await this.loadingCtrl.create();
+    loading.present();
+
     if (this.profileForm.valid) {
       this.userService.getUserIdByPhone(this.profileForm.value.phone).pipe(
-        delay(1000),
+        take(1),
         map((userId) => {
-          if (!userId) {
+          if (userId === null) {
             this.userService.createUser(this.profileForm.value);
+            this.alertController.create({
+              header: 'Данные профиля успешно сохранены',
+              buttons: ['Хорошо'],
+            }).then((alert) => {
+              alert.present();
+            });
+            return;
           }
           else {
-            this.userService.updateUser(this.profileForm.value);
+            this.alertController.create({
+              header: 'Авторизуйтесь',
+              message: 'Пользователь с таким номером телефона уже существует. Пожалуйста, авторизуйтесь.',
+              buttons: ['Хорошо'],
+            }).then((alert) => {
+              alert.present();
+            });
+            return EMPTY;
           }
         }),
-      ).subscribe();
+      ).subscribe(
+        {
+          next: () => {
+            loading.dismiss();
+          },
+          error: () => {
+            this.alertController.create({
+              header: 'Произошла ошибка',
+              buttons: ['Хорошо'],
+            }).then((alert) => {
+              alert.present();
+            });
+            loading.dismiss();
+          },
+          complete: () => {
+            loading.dismiss();
+          },
+        }
+      );
     } else {
+      loading.dismiss();
       const alert = await this.alertController.create({
         header: 'Профиль заполнен не верно',
         message: 'Проверьте, пожалуйста, корректность введенных данных',
