@@ -2,35 +2,47 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from "@angular/fire/compat/database";
 import { User } from "./user";
 import {map, Observable} from "rxjs";
+import {LocalstorageService} from "./localstorage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private db: AngularFireDatabase) {}
+  constructor(private localDb: LocalstorageService, private fireDatabase: AngularFireDatabase) {}
 
   // Create
-  createUser(user: User): string | null {
-   return this.db.database.ref('/users/').push(user).key;
+  async createUser(user: User): Promise<string | null> {
+    if (await this.localDb.get('userId')) {
+      this.updateUser(user);
+      return null;
+    }
+    const userId = this.fireDatabase.database.ref('/users/').push(user).key;
+    this.localDb.set('userId', userId);
+
+    return userId;
   }
 
-  // Get Single
+ async updateUser(user: User) {
+    const userId = await this.localDb.get('userId');
+    await this.fireDatabase.database.ref('/users/' + userId).update(user);
+  }
+
   getUser(id: string): AngularFireObject<User> {
-    return this.db.object('/users/' + id);
+    return this.fireDatabase.object('/users/' + id);
   }
 
   // Get User List
   getUserList(): AngularFireList<User> {
-    return this.db.list('/users');
+    return this.fireDatabase.list('/users');
   }
 
   // Delete
   deleteUser(id: string) {
-    this.db.object('/users/' + id).remove();
+    this.fireDatabase.object('/users/' + id).remove();
   }
 
   getUserIdByPhoneAndPassword(phone: string, password: string): Observable<string | null> {
-    return this.db.list('/users', ref =>
+    return this.fireDatabase.list('/users', ref =>
       ref.orderByChild('phone').equalTo(phone).limitToFirst(1)
     ).snapshotChanges().pipe(
       map(changes => {
@@ -46,7 +58,7 @@ export class UserService {
   }
 
   getUserIdByPhone(phone: string): Observable<string | null> {
-    return this.db.list('/users', ref =>
+    return this.fireDatabase.list('/users', ref =>
       ref.orderByChild('phone').equalTo(phone).limitToFirst(1)
     ).snapshotChanges().pipe(
       map(changes => {

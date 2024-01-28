@@ -38,8 +38,4 @@ export class CardPage {
   goToMainPage() {
     this.router.navigate(['tabs/main'])
   }
-
-  createUser() {
-    console.log(this.userService.getUser('1'))
-  }
 }

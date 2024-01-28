@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertController} from "@ionic/angular";
 import {UserService} from "../user.service";
-import {delay, map} from "rxjs";
+import {Observable, delay, map} from "rxjs";
+import {LocalstorageService} from "../localstorage.service";
+import { User } from '../user';
 
 @Component({
   selector: 'app-profile',
@@ -10,6 +12,16 @@ import {delay, map} from "rxjs";
   styleUrls: ['profile.page.scss', '../app.component.scss']
 })
 export class ProfilePage {
+
+  private user$: Observable<User | null>;
+  protected userData: User = {
+    name: '',
+    surname: '',
+    address: '',
+    phone: '',
+    password: '',
+    id: ''
+  };
 
   public profileForm: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
@@ -19,9 +31,30 @@ export class ProfilePage {
     password: ['', Validators.required],
   });
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private alertController: AlertController) {}
+  constructor(
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    private alertController: AlertController,
+    private localDb: LocalstorageService,
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.localDb.get('userId').then(value => {
+      this.userData.id = value;
+
+      this.user$ = this.userService.getUser(value).valueChanges();
+      this.user$.subscribe(user => {
+        if (user) {
+          console.log(user)
+          this.userData.name = user.name;
+          this.userData.surname = user.surname;
+          this.userData.address = user.address;
+          this.userData.phone = user.phone;
+          this.userData.password = user.password;
+        }
+      })
+    })
+  }
 
   // Функция для получения ошибок валидации для поля
   getValidationErrors(controlName: string): string[] {
@@ -47,7 +80,10 @@ export class ProfilePage {
         delay(1000),
         map((userId) => {
           if (!userId) {
-            console.log(this.userService.createUser(this.profileForm.value));
+            this.userService.createUser(this.profileForm.value);
+          }
+          else {
+            this.userService.updateUser(this.profileForm.value);
           }
         }),
       ).subscribe();

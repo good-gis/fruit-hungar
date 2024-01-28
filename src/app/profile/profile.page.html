@@ -2,27 +2,29 @@
 <ion-content [fullscreen]="true">
 
   <h2 class="page-header">Профиль</h2>
-<div class="container">
-  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <ion-input type="text" name="name" errorText="Это поле обязательно для заполнения" formControlName="name" label="Имя" labelPlacement="floating"></ion-input>
+  <div class="container">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <ion-input type="text" name="name" errorText="Это поле обязательно для заполнения" formControlName="name"
+                 label="Имя" labelPlacement="floating" value="{{userData.name}}"></ion-input>
 
 
-      <ion-input type="text" name="surname" errorText="Это поле обязательно для заполнения" formControlName="surname" label="Фамилия" labelPlacement="floating"></ion-input>
+      <ion-input type="text" name="surname" errorText="Это поле обязательно для заполнения" formControlName="surname"
+                 label="Фамилия" labelPlacement="floating"  value="{{userData.surname}}"></ion-input>
 
 
-
-      <ion-input type="text" name="address" errorText="Это поле обязательно для заполнения" formControlName="address" label="Адрес" labelPlacement="floating"></ion-input>
-
-
-
-      <ion-input type="tel" name="phone" errorText="Неверный телефон" formControlName="phone" label="Телефон" labelPlacement="floating"></ion-input>
+      <ion-input type="text" name="address" errorText="Это поле обязательно для заполнения" formControlName="address"
+                 label="Адрес" labelPlacement="floating"  value="{{userData.address}}"></ion-input>
 
 
+      <ion-input type="tel" name="phone" errorText="Неверный телефон" formControlName="phone" label="Телефон"
+                 labelPlacement="floating"  value="{{userData.phone}}"></ion-input>
 
-      <ion-input type="password" name="password" errorText="Это поле обязательно для заполнения" class="password" formControlName="password" labelPlacement="floating" label="Пароль"></ion-input>
+
+      <ion-input type="password" name="password" errorText="Это поле обязательно для заполнения" class="password"
+                 formControlName="password" labelPlacement="floating" label="Пароль"  value="{{userData.password}}"></ion-input>
 
 
-    <ion-button class="submit-btn" type="submit">Сохранить</ion-button>
-  </form>
-</div>
+      <ion-button class="submit-btn" type="submit">Сохранить</ion-button>
+    </form>
+  </div>
 </ion-content>
