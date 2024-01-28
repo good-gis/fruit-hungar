@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertController} from "@ionic/angular";
 import {UserService} from "../user.service";
@@ -6,13 +6,15 @@ import {Observable, map, take, EMPTY} from "rxjs";
 import {LocalstorageService} from "../localstorage.service";
 import { User } from '../user';
 import {LoadingController} from "@ionic/angular/standalone";
+import {OrderService} from "../order.service";
+import {Order} from "../order";
 
 @Component({
   selector: 'app-profile',
   templateUrl: 'profile.page.html',
   styleUrls: ['profile.page.scss', '../app.component.scss']
 })
-export class ProfilePage {
+export class ProfilePage implements AfterViewInit {
 
   private user$: Observable<User | null>;
   protected userData: User = {
@@ -31,29 +33,34 @@ export class ProfilePage {
     phone: ['', [Validators.required, Validators.pattern(/^(?:\+7|8|7)\d{10}$/)]],
     password: ['', Validators.required],
   });
+  orders$: Observable<any>;
 
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private localDb: LocalstorageService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private orderService: OrderService
   ) {}
 
-  ngOnInit() {
-    this.localDb.get('userId').then(value => {
-      this.userData.id = value;
+  ngAfterViewInit() {
+    this.localDb.init().then( () => {
+      this.localDb.get("userId").then(value => {
+        this.userData.id = value;
 
-      this.user$ = this.userService.getUser(value).valueChanges();
-      this.user$.subscribe(user => {
-        if (user) {
-          console.log(user)
-          this.userData.name = user.name;
-          this.userData.surname = user.surname;
-          this.userData.address = user.address;
-          this.userData.phone = user.phone;
-          this.userData.password = user.password;
-        }
+        this.user$ = this.userService.getUser(value).valueChanges();
+        this.user$.subscribe(user => {
+          if (user) {
+            this.userData.name = user.name;
+            this.userData.surname = user.surname;
+            this.userData.address = user.address;
+            this.userData.phone = user.phone;
+            this.userData.password = user.password;
+          }
+        })
+
+        this.orders$ = this.orderService.getOrdersByUserId(value);
       })
     })
   }
@@ -134,5 +141,16 @@ export class ProfilePage {
 
       await alert.present();
     }
+  }
+
+  protected readonly console = console;
+
+  calculateSumOfOrder(order: Order): number {
+    let sum = 0;
+    order.product.forEach((product) => {
+      sum = (product.quantity / 1000) * product.pricePerKg;
+    })
+
+    return sum;
   }
 }

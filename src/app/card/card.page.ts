@@ -57,9 +57,19 @@ export class CardPage {
 
       await alert.present();
     } else {
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleString('ru-RU', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+
       await this.orderService.createOrder({
         userId: userId,
-        date: new Date().toTimeString(),
+        date: formattedDate,
         product: productInBasket,
       })
       this.router.navigate(['tabs/order'])

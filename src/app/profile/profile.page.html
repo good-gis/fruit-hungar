@@ -27,4 +27,19 @@
       <ion-button class="submit-btn" type="submit">Сохранить</ion-button>
     </form>
   </div>
+
+  <ion-card *ngFor="let order of this.orders$ | async; index as i">
+    <ion-card-header>
+      <ion-card-subtitle>Заказ {{ i + 1 }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-text>Дата заказа: {{ order.date }}</ion-text><br>
+      <ion-text>Товары в заказе: </ion-text><br>
+      <div *ngFor="let item of order.product">
+        - {{ item.berries }}
+      </div>
+      <ion-text>Сумма заказа: {{ calculateSumOfOrder(order) }} ₽</ion-text><br>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
