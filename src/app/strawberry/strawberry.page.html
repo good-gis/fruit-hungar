@@ -5,7 +5,7 @@
   </div>
 
 
-  <div *ngFor="let sort of strawberries" class="strawberry-sort">
+  <div *ngFor="let sort of strawberries$ | async" class="strawberry-sort">
     <ion-card>
       <img alt="Strawberry plants" src="{{sort.image}}" />
       <ion-card-header>
@@ -27,7 +27,7 @@
             <ion-list>
               <ion-item>
                 <ion-select [(ngModel)]="selectedOption" aria-label="Укажите вес" value="500gr">
-                  <ion-select-option value="500">500 гр</ion-select-option>
+                  <ion-select-option value="500">0.5 кг</ion-select-option>
                   <ion-select-option value="1000">1 кг</ion-select-option>
                   <ion-select-option value="2000">2 кг</ion-select-option>
                   <ion-select-option value="3000">3 кг</ion-select-option>

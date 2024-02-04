@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {LocalstorageService} from "../localstorage.service";
 import {AlertController} from "@ionic/angular";
 import {OrderService} from "../order.service";
+import {LoadingController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-card',
@@ -12,7 +13,7 @@ import {OrderService} from "../order.service";
 })
 export class CardPage {
 
-  constructor(public orderService: OrderService, public router: Router, public basketService: BasketService, public localDb: LocalstorageService, private alertController: AlertController) {}
+  constructor( private loadingCtrl: LoadingController, public orderService: OrderService, public router: Router, public basketService: BasketService, public localDb: LocalstorageService, private alertController: AlertController) {}
 
   plusProductQuantity(product: BasketItem): void {
     if (product.quantity === 500) {
@@ -67,10 +68,14 @@ export class CardPage {
         year: 'numeric'
       });
 
+      const loading = await this.loadingCtrl.create();
+      await loading.present();
       await this.orderService.createOrder({
         userId: userId,
         date: formattedDate,
         product: productInBasket,
+      }).finally(async () => {
+        await loading.dismiss();
       })
       this.basketService.getBasketItems$.next([]);
       this.router.navigate(['tabs/order']);

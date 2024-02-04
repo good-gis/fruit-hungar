@@ -2,7 +2,7 @@ import {AfterViewInit, Component} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertController} from "@ionic/angular";
 import {UserService} from "../user.service";
-import {Observable, map, take, EMPTY} from "rxjs";
+import {Observable, map, take, EMPTY, tap, finalize} from "rxjs";
 import {LocalstorageService} from "../localstorage.service";
 import { User } from '../user';
 import {LoadingController} from "@ionic/angular/standalone";
@@ -45,8 +45,12 @@ export class ProfilePage implements AfterViewInit {
   ) {}
 
   ngAfterViewInit() {
-    this.localDb.init().then( () => {
-      this.localDb.get("userId").then(value => {
+    this.localDb.init().then(() => {
+
+      this.localDb.get("userId").then(async value => {
+        const loading = await this.loadingCtrl.create();
+        await loading.present();
+
         this.userData.id = value;
 
         this.user$ = this.userService.getUser(value).valueChanges();
@@ -58,9 +62,15 @@ export class ProfilePage implements AfterViewInit {
             this.userData.phone = user.phone;
             this.userData.password = user.password;
           }
+          loading.dismiss();
         })
 
-        this.orders$ = this.orderService.getOrdersByUserId(value);
+
+        this.orders$ = this.orderService.getOrdersByUserId(value).pipe(
+          finalize(() => {
+            loading.dismiss();
+          })
+        );
       })
     })
   }

@@ -1,17 +1,41 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {strawberries} from "./strawberries-mock";
 import {BasketService} from "../basket.service";
 import {Strawberry} from "./strawberry";
+import {catchError, finalize, Observable, tap, throwError} from "rxjs";
+import {StrawberryService} from "../strawberry.service";
+import {LoadingController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-strawberry',
   templateUrl: './strawberry.page.html',
   styleUrls: ['./strawberry.page.scss'],
 })
-export class StrawberryPage {
-  selectedOption = '500';
+export class StrawberryPage implements OnInit {
 
-  constructor(public basketService: BasketService) { }
+  selectedOption = '500';
+  strawberries$: Observable<Strawberry[]>;
+
+  constructor(public basketService: BasketService, public strawberryService: StrawberryService, public loadingCtrl: LoadingController) {}
+
+  async ngOnInit() {
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
+
+    this.strawberries$ = this.strawberryService.getStrawberryProducts().pipe(
+      tap(strawberries => {
+        // Вызываем loading.dismiss() после получения сортов
+        if (strawberries.length > 0) {
+          loading.dismiss();
+        }
+      }),
+      catchError(error => {
+        console.error('An error occurred:', error);
+        loading.dismiss();
+        return throwError('Error occurred while fetching strawberry products.');
+      }),
+    );
+  }
 
   prepareTextForProgressBar(days: number): string {
     switch (days) {
