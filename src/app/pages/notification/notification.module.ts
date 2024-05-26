@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NotificationPage } from './notification.page';
 
 import { NotificationPageRoutingModule } from './notification-routing.module';
-import {HeaderModule} from "../header/header.module";
+import {HeaderModule} from "../../shared/header/header.module";
 
 @NgModule({
     imports: [

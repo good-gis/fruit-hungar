@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import {BasketItem, BasketService} from "../basket.service";
+import {BasketItem, BasketService} from "../../shared/basket.service";
 import {Router} from "@angular/router";
-import {LocalstorageService} from "../localstorage.service";
+import {LocalstorageService} from "../../shared/localstorage.service";
 import {AlertController} from "@ionic/angular";
-import {OrderService} from "../order.service";
+import {OrderService} from "../../shared/order.service";
 import {LoadingController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-card',
   templateUrl: 'card.page.html',
-  styleUrls: ['card.page.scss', '../app.component.scss']
+  styleUrls: ['card.page.scss', '../../app.component.scss']
 })
 export class CardPage {
 

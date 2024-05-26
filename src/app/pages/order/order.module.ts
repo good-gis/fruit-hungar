@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { OrderPageRoutingModule } from './order-routing.module';
 
 import { OrderPage } from './order.page';
-import {HeaderModule} from "../header/header.module";
+import {HeaderModule} from "../../shared/header/header.module";
 
 @NgModule({
     imports: [

@@ -1,18 +1,18 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertController} from "@ionic/angular";
-import {UserService} from "../user.service";
+import {UserService} from "../../shared/user.service";
 import {Observable, map, take, EMPTY, tap, finalize} from "rxjs";
-import {LocalstorageService} from "../localstorage.service";
-import { User } from '../user';
+import {LocalstorageService} from "../../shared/localstorage.service";
+import { User } from '../../shared/user';
 import {LoadingController} from "@ionic/angular/standalone";
-import {OrderService} from "../order.service";
-import {Order} from "../order";
+import {OrderService} from "../../shared/order.service";
+import {Order} from "../../shared/order";
 
 @Component({
   selector: 'app-profile',
   templateUrl: 'profile.page.html',
-  styleUrls: ['profile.page.scss', '../app.component.scss']
+  styleUrls: ['profile.page.scss', '../../app.component.scss']
 })
 export class ProfilePage implements AfterViewInit {
 

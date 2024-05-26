@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import {ProfilePage} from "./profile.page";
-import {HeaderModule} from "../header/header.module";
+import {HeaderModule} from "../../shared/header/header.module";
 
 @NgModule({
   imports: [

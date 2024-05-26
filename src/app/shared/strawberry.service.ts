@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
-import {Strawberry} from "./strawberry/strawberry";
+import {Strawberry} from "../pages/strawberry/strawberry";
 
 @Injectable({
   providedIn: 'root'

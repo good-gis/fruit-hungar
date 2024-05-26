@@ -9,27 +9,27 @@ const routes: Routes = [
     children: [
       {
         path: 'main',
-        loadChildren: () => import('../main/main.module').then(m => m.MainPageModule)
+        loadChildren: () => import('../../pages/main/main.module').then(m => m.MainPageModule)
       },
       {
         path: 'card',
-        loadChildren: () => import('../card/card.module').then(m => m.CardPageModule)
+        loadChildren: () => import('../../pages/card/card.module').then(m => m.CardPageModule)
       },
       {
         path: 'notification',
-        loadChildren: () => import('../notification/notification.module').then(m => m.NotificationPageModule)
+        loadChildren: () => import('../../pages/notification/notification.module').then(m => m.NotificationPageModule)
       },
       {
         path: 'profile',
-        loadChildren: () => import('../profile/profile.module').then(m => m.ProfileModule)
+        loadChildren: () => import('../../pages/profile/profile.module').then(m => m.ProfileModule)
       },
       {
         path: 'strawberry',
-        loadChildren: () => import('../strawberry/strawberry.module').then(m => m.StrawberryPageModule)
+        loadChildren: () => import('../../pages/strawberry/strawberry.module').then(m => m.StrawberryPageModule)
       },
       {
         path: 'order',
-        loadChildren: () => import('../order/order.module').then(m => m.OrderPageModule)
+        loadChildren: () => import('../../pages/order/order.module').then(m => m.OrderPageModule)
       },
       {
         path: '',

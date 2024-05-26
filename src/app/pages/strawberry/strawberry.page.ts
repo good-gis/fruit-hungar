@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {strawberries} from "./strawberries-mock";
-import {BasketService} from "../basket.service";
+import {BasketService} from "../../shared/basket.service";
 import {Strawberry} from "./strawberry";
 import {catchError, finalize, Observable, tap, throwError} from "rxjs";
-import {StrawberryService} from "../strawberry.service";
+import {StrawberryService} from "../../shared/strawberry.service";
 import {LoadingController} from "@ionic/angular/standalone";
 
 @Component({

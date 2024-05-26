@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { StrawberryPageRoutingModule } from './strawberry-routing.module';
 
 import { StrawberryPage } from './strawberry.page';
-import {HeaderModule} from "../header/header.module";
+import {HeaderModule} from "../../shared/header/header.module";
 
 @NgModule({
   imports: [

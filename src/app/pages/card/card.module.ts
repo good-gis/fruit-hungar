@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CardPage } from './card.page';
 import { CardPageRoutingModule } from './card-routing.module';
-import {HeaderModule} from "../header/header.module";
+import {HeaderModule} from "../../shared/header/header.module";
 
 @NgModule({
   imports: [
